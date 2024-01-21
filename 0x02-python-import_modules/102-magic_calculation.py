@@ -2,7 +2,7 @@
 
 
 def magic_calculation(a, b):
-    """Impor bytecode provided by Holberton School."""
+    """Match bytecode provided by Holberton School."""
     from magic_calculation_102 import add, sub
 
     if a < b:
