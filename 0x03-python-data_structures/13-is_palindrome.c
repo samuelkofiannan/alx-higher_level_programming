@@ -1,53 +1,75 @@
 #include "lists.h"
-#include <stdlib.h>
 #include <stdio.h>
 
-/**
-*add_nodeint - adds a new node at the beginning of a listint_t list
-*@head: head of listint_t
-*@n: int to add in listint_t list
-*Return: address of the new element, or NULL if it failed
-*/
-listint_t *add_nodeint(listint_t **head, const int n)
-{
-	listint_t *new;
+listint_t *reverse_listint(listint_t **head);
+int is_palindrome(listint_t **head);
 
-	new = malloc(sizeof(listint_t));
-	if (new == NULL)
-		return (NULL);
-	new->n = n;
-	new->next = *head;
-	*head = new;
-	return (new);
-}
 /**
-*is_palindrome - identify if a syngle linked list is palindrome
-*@head: head of listint_t
-*Return: 1 if it is palindrome else 0
-*/
+ * reverse_listint - Reverses a singly-linked
+ * listint_t list.
+ * @head: My pointer
+ * the list to reverse.
+ * Return: Pointer to the head of the reversed list.
+ */
+
+listint_t *reverse_listint(listint_t **head)
+{
+	listint_t *node = *head, *next, *prev = NULL;
+
+	while (node)
+	{
+		next = node->next;
+		node->next = prev;
+		prev = node;
+		node = next;
+	}
+
+	*head = prev;
+	return (*head);
+}
+
+/**
+ * is_palindrome - Identify if singly linked list is palindrome
+ * @head: My pointer to the head of list
+ * Return: return 0, if linked list is not a palindrome,
+ * otherwise return 1
+ */
+
 int is_palindrome(listint_t **head)
 {
-	listint_t *head2 = *head;
-	listint_t *aux = NULL, *aux2 = NULL;
+	listint_t *tmp, *rev, *mid;
+	size_t size = 0, i;
 
-	if (*head == NULL || head2->next == NULL)
+	if (*head == NULL || (*head)->next == NULL)
 		return (1);
-	while (head2 != NULL)
+
+	tmp = *head;
+	while (tmp)
 	{
-		add_nodeint(&aux, head2->n);
-		head2 = head2->next;
+		size++;
+		tmp = tmp->next;
 	}
-	aux2 = aux;
-	while (*head != NULL)
+
+	tmp = *head;
+	for (i = 0; i < (size / 2) - 1; i++)
+		tmp = tmp->next;
+
+	if ((size % 2) == 0 && tmp->n != tmp->next->n)
+		return (0);
+
+	tmp = tmp->next->next;
+	rev = reverse_listint(&tmp);
+	mid = rev;
+
+	tmp = *head;
+	while (rev)
 	{
-		if ((*head)->n != aux2->n)
-		{
-			free_listint(aux);
+		if (tmp->n != rev->n)
 			return (0);
-		}
-		*head = (*head)->next;
-		aux2 = aux2->next;
+		tmp = tmp->next;
+		rev = rev->next;
 	}
-	free_listint(aux);
+	reverse_listint(&mid);
+
 	return (1);
 }
