@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-from __future__ import print_function
 import sys
 
 """ A function that executes a function safely.
