@@ -4,6 +4,7 @@
 import MySQLdb
 from sys import argv
 
+
 def lists_states(user, password, database, search_query):
     """Lists states in the database"""
     conn = MySQLdb.connect(host="localhost", port=3306, user=user,
@@ -18,6 +19,7 @@ def lists_states(user, password, database, search_query):
         print(row)
     cur.close()
     conn.close()
+
 
 if __name__ == "__main__":
     lists_states(argv[1], argv[2], argv[3], argv[4])
