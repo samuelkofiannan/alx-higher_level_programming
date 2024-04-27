@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 """
 Creates the State "California" with the City "San Francisco" from a DB
@@ -26,4 +25,3 @@ if __name__ == '__main__':
     session.add(newState)
     session.add(newCity)
     session.commit()
-
